@@ -40,6 +40,7 @@ public class CameraManager : MonoBehaviour
         RotateCamera();
         HandleCameraCollisions();
     }
+
     private void FollowTarget()
     {
         Vector3 targetPosition = Vector3.SmoothDamp
