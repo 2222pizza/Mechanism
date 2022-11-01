@@ -1,3 +1,13 @@
+/*
+ * Project Mechanism
+ * Last Updated: 10/31/2022
+ * 
+ * Description: Implementation for managing the health of the player. 
+ *      As a side note, this code COULD work for AI. More testing to be determined.
+ * 
+ * Christ is King.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
