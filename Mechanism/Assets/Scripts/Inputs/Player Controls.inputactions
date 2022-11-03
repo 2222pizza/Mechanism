@@ -24,13 +24,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "Jump[WIP]",
                     "type": "Button",
                     "id": "b97945d8-d0f2-4173-a985-80f7da50c9e5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Flight[WIP]",
+                    "type": "Button",
+                    "id": "9a278309-167d-4e85-8a22-15b9339b291d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Dodge[WIP]",
+                    "type": "Button",
+                    "id": "ca6e922f-faa5-4455-922d-e54dd213de19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -217,7 +235,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Jump[WIP]",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -228,7 +246,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Jump[WIP]",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2eb78b6d-9ef5-4fa1-a253-db46455519d3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Flight[WIP]",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad8e9367-5e50-47d6-9474-4328c8d3641d",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge[WIP]",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

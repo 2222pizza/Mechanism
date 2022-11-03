@@ -46,13 +46,31 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Jump[WIP]"",
                     ""type"": ""Button"",
                     ""id"": ""b97945d8-d0f2-4173-a985-80f7da50c9e5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Flight[WIP]"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a278309-167d-4e85-8a22-15b9339b291d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Dodge[WIP]"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca6e922f-faa5-4455-922d-e54dd213de19"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -239,7 +257,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Jump[WIP]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -250,7 +268,29 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Jump[WIP]"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2eb78b6d-9ef5-4fa1-a253-db46455519d3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flight[WIP]"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad8e9367-5e50-47d6-9474-4328c8d3641d"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge[WIP]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -263,7 +303,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Camera = m_PlayerMovement.FindAction("Camera", throwIfNotFound: true);
-        m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerMovement_JumpWIP = m_PlayerMovement.FindAction("Jump[WIP]", throwIfNotFound: true);
+        m_PlayerMovement_FlightWIP = m_PlayerMovement.FindAction("Flight[WIP]", throwIfNotFound: true);
+        m_PlayerMovement_DodgeWIP = m_PlayerMovement.FindAction("Dodge[WIP]", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -325,14 +367,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Camera;
-    private readonly InputAction m_PlayerMovement_Jump;
+    private readonly InputAction m_PlayerMovement_JumpWIP;
+    private readonly InputAction m_PlayerMovement_FlightWIP;
+    private readonly InputAction m_PlayerMovement_DodgeWIP;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerMovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Camera => m_Wrapper.m_PlayerMovement_Camera;
-        public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
+        public InputAction @JumpWIP => m_Wrapper.m_PlayerMovement_JumpWIP;
+        public InputAction @FlightWIP => m_Wrapper.m_PlayerMovement_FlightWIP;
+        public InputAction @DodgeWIP => m_Wrapper.m_PlayerMovement_DodgeWIP;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -348,9 +394,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Camera.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnCamera;
                 @Camera.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnCamera;
                 @Camera.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnCamera;
-                @Jump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @JumpWIP.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJumpWIP;
+                @JumpWIP.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJumpWIP;
+                @JumpWIP.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJumpWIP;
+                @FlightWIP.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnFlightWIP;
+                @FlightWIP.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnFlightWIP;
+                @FlightWIP.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnFlightWIP;
+                @DodgeWIP.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDodgeWIP;
+                @DodgeWIP.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDodgeWIP;
+                @DodgeWIP.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDodgeWIP;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -361,9 +413,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @JumpWIP.started += instance.OnJumpWIP;
+                @JumpWIP.performed += instance.OnJumpWIP;
+                @JumpWIP.canceled += instance.OnJumpWIP;
+                @FlightWIP.started += instance.OnFlightWIP;
+                @FlightWIP.performed += instance.OnFlightWIP;
+                @FlightWIP.canceled += instance.OnFlightWIP;
+                @DodgeWIP.started += instance.OnDodgeWIP;
+                @DodgeWIP.performed += instance.OnDodgeWIP;
+                @DodgeWIP.canceled += instance.OnDodgeWIP;
             }
         }
     }
@@ -372,6 +430,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnJumpWIP(InputAction.CallbackContext context);
+        void OnFlightWIP(InputAction.CallbackContext context);
+        void OnDodgeWIP(InputAction.CallbackContext context);
     }
 }
