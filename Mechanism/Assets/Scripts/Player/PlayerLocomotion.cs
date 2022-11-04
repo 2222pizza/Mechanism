@@ -21,7 +21,7 @@ public class PlayerLocomotion : MonoBehaviour
     public Rigidbody playerRigidbody;
 
     //Change player speed by changing this variable
-    public float movementSpeed = 7;
+    public float movementSpeed = 20;
     public float rotationSpeed = 50;
 
     private void Awake(){

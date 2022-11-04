@@ -71,6 +71,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action 1"",
+                    ""type"": ""Button"",
+                    ""id"": ""67029569-9257-49a1-af63-ad2b60be26da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -293,6 +302,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Dodge[WIP]"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4701a1a-3c44-413e-a647-7ce8137d9744"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action 1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -306,6 +326,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerMovement_JumpWIP = m_PlayerMovement.FindAction("Jump[WIP]", throwIfNotFound: true);
         m_PlayerMovement_FlightWIP = m_PlayerMovement.FindAction("Flight[WIP]", throwIfNotFound: true);
         m_PlayerMovement_DodgeWIP = m_PlayerMovement.FindAction("Dodge[WIP]", throwIfNotFound: true);
+        m_PlayerMovement_Action1 = m_PlayerMovement.FindAction("Action 1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -370,6 +391,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_JumpWIP;
     private readonly InputAction m_PlayerMovement_FlightWIP;
     private readonly InputAction m_PlayerMovement_DodgeWIP;
+    private readonly InputAction m_PlayerMovement_Action1;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -379,6 +401,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @JumpWIP => m_Wrapper.m_PlayerMovement_JumpWIP;
         public InputAction @FlightWIP => m_Wrapper.m_PlayerMovement_FlightWIP;
         public InputAction @DodgeWIP => m_Wrapper.m_PlayerMovement_DodgeWIP;
+        public InputAction @Action1 => m_Wrapper.m_PlayerMovement_Action1;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -403,6 +426,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DodgeWIP.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDodgeWIP;
                 @DodgeWIP.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDodgeWIP;
                 @DodgeWIP.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDodgeWIP;
+                @Action1.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAction1;
+                @Action1.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAction1;
+                @Action1.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAction1;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -422,6 +448,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DodgeWIP.started += instance.OnDodgeWIP;
                 @DodgeWIP.performed += instance.OnDodgeWIP;
                 @DodgeWIP.canceled += instance.OnDodgeWIP;
+                @Action1.started += instance.OnAction1;
+                @Action1.performed += instance.OnAction1;
+                @Action1.canceled += instance.OnAction1;
             }
         }
     }
@@ -433,5 +462,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnJumpWIP(InputAction.CallbackContext context);
         void OnFlightWIP(InputAction.CallbackContext context);
         void OnDodgeWIP(InputAction.CallbackContext context);
+        void OnAction1(InputAction.CallbackContext context);
     }
 }
