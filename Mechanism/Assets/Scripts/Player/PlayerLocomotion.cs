@@ -20,8 +20,13 @@ public class PlayerLocomotion : MonoBehaviour
     public Transform cameraObject;
     public Rigidbody playerRigidbody;
 
-    //Change player speed by changing this variable
-    public float movementSpeed = 20;
+    public bool isSprinting;
+
+    //Change player speed by manipulating these variables
+    [Header("Movement Speeds")]
+    public float walkingSpeed = 30f;
+    public float runningSpeed = 60;
+    public float sprintingSpeed = 90;
     public float rotationSpeed = 50;
 
     private void Awake(){
@@ -42,7 +47,24 @@ public class PlayerLocomotion : MonoBehaviour
         moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
         moveDirection.Normalize();
         moveDirection.y = 0;
-        moveDirection = moveDirection * movementSpeed;
+
+        if (isSprinting)
+        {
+            moveDirection = moveDirection * sprintingSpeed;
+        }
+        else
+        {
+            if (inputManager.moveAmount >= 0.5f)
+            {
+                moveDirection = moveDirection * runningSpeed;
+            }
+            else
+            {
+                moveDirection = moveDirection * walkingSpeed;
+            }
+        }
+
+
 
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.velocity = movementVelocity;

@@ -22,42 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Jump[WIP]",
-                    "type": "Button",
-                    "id": "b97945d8-d0f2-4173-a985-80f7da50c9e5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Flight[WIP]",
-                    "type": "Button",
-                    "id": "9a278309-167d-4e85-8a22-15b9339b291d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "MultiTap",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Dodge[WIP]",
-                    "type": "Button",
-                    "id": "ca6e922f-faa5-4455-922d-e54dd213de19",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Action 1",
-                    "type": "Button",
-                    "id": "67029569-9257-49a1-af63-ad2b60be26da",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -236,59 +200,43 @@
                     "action": "Camera",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
+                }
+            ]
+        },
+        {
+            "name": "Player Actions",
+            "id": "a8e88854-d865-4ca1-bced-1093da934caa",
+            "actions": [
+                {
+                    "name": "B",
+                    "type": "Button",
+                    "id": "91c147df-abf3-4bfb-a46b-7ca71116d719",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "31373b77-c812-4374-bca5-365a07b3162c",
-                    "path": "<Keyboard>/space",
+                    "id": "744ef2b9-5dc8-48fe-a065-762cf3f0393d",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump[WIP]",
+                    "action": "B",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b0dce50e-2b5d-4504-bc4b-94f1ed157bc8",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "d827281c-242d-49f0-bafc-33b320280a3e",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump[WIP]",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2eb78b6d-9ef5-4fa1-a253-db46455519d3",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Flight[WIP]",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ad8e9367-5e50-47d6-9474-4328c8d3641d",
-                    "path": "<Keyboard>/leftAlt",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dodge[WIP]",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c4701a1a-3c44-413e-a647-7ce8137d9744",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action 1",
+                    "action": "B",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
