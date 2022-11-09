@@ -23,8 +23,11 @@ public class PlayerHealth : MonoBehaviour
         //Player Death
         if(healthAmount <= 0)
         {
+
+
             //TODO: Kill the player
         }
+
 
         //TODO: Take Damage triggers?
     }
