@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ResetBool : StateMachineBehaviour
 {
-
     public string isInteractingBool;
     public bool isInteractingStatus;
 
