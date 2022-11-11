@@ -17,15 +17,15 @@ public class PlayerHealth : MonoBehaviour
 {
     public Image healthBar; //TODO: change this to adjust to UI implementation
     public float healthAmount = 100;
+    
 
     private void Update()
     {
         //Player Death
         if(healthAmount <= 0)
         {
-
-
             //TODO: Kill the player
+            
         }
 
 
