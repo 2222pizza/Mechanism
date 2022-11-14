@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class BotActionManager : MonoBehaviour {
     Animator animator;
-    int horizontal;
-    int vertical;
+    int speed;
+    int motionSpeed;
 
     private void Awake() {
         animator = GetComponent<Animator>();
-        horizontal = Animator.StringToHash("Horizontal");
-        vertical = Animator.StringToHash("Vertical");
+        speed = Animator.StringToHash("Speed");
+        motionSpeed = Animator.StringToHash("MotionSpeed");
     }
 
     public void HandleMovement(float currentSpeed) {
-        if (currentSpeed <= 0.2f) {
-            animator.SetFloat(horizontal, 0, 0.1f, Time.deltaTime);
-            animator.SetFloat(vertical, 0, 0.1f, Time.deltaTime);
+        if (currentSpeed <= 0.5f) {
+            animator.SetFloat(speed, 0, 0.1f, Time.deltaTime);
+            //animator.SetFloat(motionSpeed, 0, 10.0f, Time.deltaTime);
         }
         else {
-            animator.SetFloat(horizontal, 1, 0.1f, Time.deltaTime);
-            animator.SetFloat(vertical, 1, 0.1f, Time.deltaTime);
+            animator.SetFloat(speed, currentSpeed * 2.1f, 0.1f, Time.deltaTime);
+            animator.SetFloat(motionSpeed, currentSpeed * 0.03f, 0.1f, Time.deltaTime);
         }
     }
 }
