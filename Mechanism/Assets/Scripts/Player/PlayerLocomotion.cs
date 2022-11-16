@@ -129,7 +129,7 @@ public class PlayerLocomotion : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 rayCastOrigin = transform.position;
-        //Vector3 targetPosition = transform.position;
+        Vector3 targetPosition = transform.position;
         rayCastOrigin.y = rayCastOrigin.y + rayCastHeightOffSet;
 
         if (!isGrounded)
@@ -152,8 +152,8 @@ public class PlayerLocomotion : MonoBehaviour
                 animatorManager.PlayTargetAnimation("Landing", true);
             }
 
-            //Vector3 rayCastHitPoint = hit.point;
-            //targetPosition.y = rayCastHitPoint.y;
+            Vector3 rayCastHitPoint = hit.point;
+            targetPosition.y = rayCastHitPoint.y;
 
             inAirTimer = 0;
             isGrounded = true;
@@ -163,7 +163,7 @@ public class PlayerLocomotion : MonoBehaviour
             isGrounded = false;
         }
 
-        /*if (isGrounded && !isJumping)
+        if (isGrounded && !isJumping)
         {
             if (playerManager.isInteracting || inputManager.moveAmount > 0)
             {
@@ -173,7 +173,7 @@ public class PlayerLocomotion : MonoBehaviour
             {
                 transform.position = targetPosition;
             }
-        }*/
+        }
     }
 
     public void HandleJumping()
