@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Training Map.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Start Scene.unity
+    guid: 6b072ab2e4fc2485e8d9c800c12da145
+  - enabled: 1
+    path: Assets/Scenes/City Map.unity
+    guid: b3cbec8a7b5a93549afc8ebdbbbbf0f8
+  - enabled: 1
+    path: Assets/Scenes/End Scene.unity
+    guid: 4828f93d4392546bb9e1aee77eab3a19
   m_configObjects: {}
