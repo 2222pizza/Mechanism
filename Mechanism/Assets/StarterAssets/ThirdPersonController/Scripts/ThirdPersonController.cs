@@ -48,6 +48,12 @@ namespace StarterAssets
 		[Tooltip("What layers the character uses as ground")]
 		public LayerMask GroundLayers;
 
+		[Header("Player Flight (WIP)")]
+		[Tooltip("If the character is using flight mode or not. NOT part of the default CharacterController.")]
+		public bool isFlying = false;
+		[Tooltip("The value of how fast the character can move in flight mode. NOT part of the default CharacterController.")]
+		public float flightVelociy = 20f;
+
 		[Header("Cinemachine")]
 		[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
 		public GameObject CinemachineCameraTarget;
@@ -234,6 +240,12 @@ namespace StarterAssets
 
 		private void JumpAndGravity()
 		{
+			if (isFlying)
+            {
+				_fallTimeoutDelta = FallTimeout;
+				return;
+            }
+
 			if (Grounded)
 			{
 				// reset the fall timeout timer
@@ -329,5 +341,29 @@ namespace StarterAssets
         {
             _rotateOnMove = newRotateOnMove;
         }
-	}
+
+		//Flight Implementation
+		public void Flight() 
+		{
+			if (!_input.fly) {
+				isFlying = true;
+
+				_verticalVelocity = -Gravity;
+
+				//Move player	
+				Move();
+				if (_input.jump	&& _jumpTimeoutDelta <= 0.0f)
+				{
+						// the square root of H * -2 * G = how much velocity needed to reach desired height
+						_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+
+						// update animator if using character
+						if (_hasAnimator)
+						{
+							_animator.SetBool(_animIDJump, true);
+						}
+				}
+			}
+        }
+    }
 }

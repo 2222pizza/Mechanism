@@ -2995,6 +2995,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4294374857942676, guid: a128392620f2b0e4c940a2391ed8da3e, type: 3}
   m_PrefabInstance: {fileID: 1336309101}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1373355306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1761115498206878709, guid: a0748b8f9da447b439be7da139036c7c, type: 3}
+  m_PrefabInstance: {fileID: 373365698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1373355308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373355306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f584847a1a4c5c241a7f9ce1d4cbef29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentOverride: {fileID: 0}
+  isLeftHandSlot: 1
+  isRightHandSlot: 0
+  currentWeaponModel: {fileID: 0}
+--- !u!114 &1373355309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373355306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df42c094cffd40f41886299f167a0295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1435876520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3396,6 +3429,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4353395921811104, guid: a523b2a222cd33041a9851edfed862dd, type: 3}
   m_PrefabInstance: {fileID: 1498535741}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1540166580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2878377456597919482, guid: a0748b8f9da447b439be7da139036c7c, type: 3}
+  m_PrefabInstance: {fileID: 373365698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1540166582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540166580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f584847a1a4c5c241a7f9ce1d4cbef29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentOverride: {fileID: 0}
+  isLeftHandSlot: 0
+  isRightHandSlot: 1
+  currentWeaponModel: {fileID: 0}
 --- !u!1001 &1577541752
 PrefabInstance:
   m_ObjectHideFlags: 0
