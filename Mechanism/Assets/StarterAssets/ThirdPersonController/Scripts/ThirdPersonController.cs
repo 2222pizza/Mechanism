@@ -49,10 +49,10 @@ namespace StarterAssets
 		public LayerMask GroundLayers;
 
 		[Header("Player Flight (WIP)")]
-		[Tooltip("If the character is using flight mode or not. NOT part of the default CharacterController.")]
+		[Tooltip("If the character is using flight mode or not.")]
 		public bool isFlying = false;
-		[Tooltip("The value of how fast the character can move in flight mode. NOT part of the default CharacterController.")]
-		public float flightVelociy = 20f;
+		[Tooltip("The value of how fast the character can move up and down in flight mode.")]
+		public float flightVelocity = 20f;
 
 		[Header("Cinemachine")]
 		[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -128,6 +128,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Flight();
 		}
 
 		private void LateUpdate()
@@ -345,25 +346,31 @@ namespace StarterAssets
 		//Flight Implementation
 		public void Flight() 
 		{
-			if (!_input.fly) {
-				isFlying = true;
+			if (_input.fly) {
+				isFlying = true;		
 
-				_verticalVelocity = -Gravity;
-
-				//Move player	
-				Move();
-				if (_input.jump	&& _jumpTimeoutDelta <= 0.0f)
+				//The player can use the JUMP input to move upwards in flight.
+				if (_input.jump)
 				{
-						// the square root of H * -2 * G = how much velocity needed to reach desired height
-						_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-
-						// update animator if using character
-						if (_hasAnimator)
-						{
-							_animator.SetBool(_animIDJump, true);
-						}
+					_verticalVelocity = flightVelocity;
 				}
+				else if (_input.sprint)
+                {
+					_verticalVelocity = -flightVelocity;
+                }
+                else
+                {
+					_verticalVelocity = 0;
+				}
+
+				//Move player. This stacks on top of the move function calling in Update(), making the player move faster.
+				//There is probably a more efficient way to implement this but this was coded at ungodly hours and we can fix this later.
+				Move();
 			}
+            else
+            {
+				isFlying = false;
+            }
         }
     }
 }
