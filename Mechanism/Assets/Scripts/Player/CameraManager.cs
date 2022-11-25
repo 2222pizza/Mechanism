@@ -27,13 +27,17 @@ public class CameraManager : MonoBehaviour
     public float minimumCollisionOffSet = 0.2f;
     public float cameraCollisionRadius = 0.2f;
     public float cameraFollowSpeed = 0.2f;
-    public float cameraLookSpeed = 2;
-    public float cameraPivotSpeed = 2;
+    public float cameraLookSpeed = 15;
+    public float cameraPivotSpeed = 15;
+    public float cameraLookSmoothTime = 1;
 
     public float lookAngle; //Camera look up&down
     public float pivotAngle; //Camera look left&right
     public float minimumPivotAngle = -90;
     public float maximumPivotAngle = 90;
+
+    //public float normalSensitivity = 10;
+    //public float aimSensitivity = 10;
 
     private void Awake()
     {
@@ -63,8 +67,11 @@ public class CameraManager : MonoBehaviour
         Vector3 rotation;
         Quaternion targetRotation;
 
-        lookAngle = lookAngle + (inputManager.cameraInputX * cameraLookSpeed);
-        pivotAngle = pivotAngle + (inputManager.cameraInputY * cameraPivotSpeed);
+        //lookAngle = lookAngle + (inputManager.cameraInputX * cameraLookSpeed);
+        //pivotAngle = pivotAngle + (inputManager.cameraInputY * cameraPivotSpeed);
+        lookAngle = Mathf.Lerp(lookAngle, lookAngle + (inputManager.cameraInputX * cameraLookSpeed), cameraLookSmoothTime * Time.deltaTime);
+        pivotAngle = Mathf.Lerp(pivotAngle, pivotAngle - (inputManager.cameraInputY * cameraPivotSpeed), cameraLookSmoothTime * Time.deltaTime);
+
         pivotAngle = Mathf.Clamp(pivotAngle, minimumPivotAngle, maximumPivotAngle);
 
         rotation = Vector3.zero;

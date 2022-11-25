@@ -264,6 +264,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fly"",
+                    ""type"": ""Button"",
+                    ""id"": ""db2e15e1-c551-4e95-a90b-e778f0280df2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -321,6 +330,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42149217-7037-405a-aff8-d3583f66b0ec"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -337,6 +357,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Action1MouseL = m_PlayerActions.FindAction("Action1 [MouseL]", throwIfNotFound: true);
         m_PlayerActions_Action2MouseR = m_PlayerActions.FindAction("Action2 [MouseR]", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerActions_Fly = m_PlayerActions.FindAction("Fly", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -441,6 +462,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Action1MouseL;
     private readonly InputAction m_PlayerActions_Action2MouseR;
     private readonly InputAction m_PlayerActions_Jump;
+    private readonly InputAction m_PlayerActions_Fly;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -449,6 +471,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Action1MouseL => m_Wrapper.m_PlayerActions_Action1MouseL;
         public InputAction @Action2MouseR => m_Wrapper.m_PlayerActions_Action2MouseR;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
+        public InputAction @Fly => m_Wrapper.m_PlayerActions_Fly;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -470,6 +493,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
+                @Fly.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnFly;
+                @Fly.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnFly;
+                @Fly.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnFly;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -486,6 +512,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Fly.started += instance.OnFly;
+                @Fly.performed += instance.OnFly;
+                @Fly.canceled += instance.OnFly;
             }
         }
     }
@@ -501,5 +530,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAction1MouseL(InputAction.CallbackContext context);
         void OnAction2MouseR(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnFly(InputAction.CallbackContext context);
     }
 }

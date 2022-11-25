@@ -32,19 +32,25 @@ public class PlayerLocomotion : MonoBehaviour
     public bool isSprinting;
     public bool isGrounded;
     public bool isJumping;
+    public bool isFlying;
 
     //Change player speed by manipulating these variables
     [Header("Movement Speeds")]
-    public float walkingSpeed = 30f;
-    public float runningSpeed = 60;
-    public float sprintingSpeed = 90;
-    public float rotationSpeed = 50;
+    public float walkingSpeed = 15f;
+    public float runningSpeed = 20f;
+    public float sprintingSpeed = 25f;
+    public float rotationSpeed = 50f;
 
     [Header("Jump Speeds")]
-    public float jumpHeight = 3;
-    public float gravityIntensity = -15;
+    public float jumpHeight = 4;
+    public float gravityIntensity = -35;
 
-    private void Awake(){
+    [Header("Flight Stats")]
+    public float flightSpeed = 35f;
+
+
+    private void Awake()
+    {
         isGrounded = true;
         playerManager = GetComponent<PlayerManager>();
         animatorManager = GetComponent<AnimatorManager>();
@@ -66,19 +72,25 @@ public class PlayerLocomotion : MonoBehaviour
         HandleRotation();
     }
 
-    private void HandleMovement(){
+    private void HandleMovement()
+    {
         if (isJumping)
         {
             return;
         }
 
         //MOVEMENT INPUT
-        moveDirection = cameraObject.forward * inputManager.verticalInput;
+        //moveDirection = cameraObject.forward * inputManager.verticalInput;
+        moveDirection = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
         moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
         moveDirection.Normalize();
         moveDirection.y = 0;
-
-        if (isSprinting)
+       
+        if (isFlying)
+        {
+            moveDirection = moveDirection * flightSpeed;
+        }
+        else if (isSprinting)
         {
             moveDirection = moveDirection * sprintingSpeed;
         }
@@ -93,8 +105,6 @@ public class PlayerLocomotion : MonoBehaviour
                 moveDirection = moveDirection * walkingSpeed;
             }
         }
-
-
 
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.velocity = movementVelocity;
@@ -127,6 +137,11 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleFallingAndLanding()
     {
+        if (isFlying)
+        {
+            return;
+        }
+
         RaycastHit hit;
         Vector3 rayCastOrigin = transform.position;
         Vector3 targetPosition = transform.position;
@@ -134,14 +149,13 @@ public class PlayerLocomotion : MonoBehaviour
 
         if (!isGrounded)
         {
+            inAirTimer = inAirTimer + Time.deltaTime;
+            playerRigidbody.AddForce(transform.forward * leapingVelocity);
+            playerRigidbody.AddForce(-Vector3.up * fallingVelocity * inAirTimer * 2);
             if (!playerManager.isInteracting && !isJumping)
             {
                 animatorManager.PlayTargetAnimation("Falling", true);
             }
-
-            inAirTimer = inAirTimer + Time.deltaTime;
-            playerRigidbody.AddForce(transform.forward * leapingVelocity);
-            playerRigidbody.AddForce(-Vector3.up * fallingVelocity * inAirTimer);
 
         }
 
@@ -163,6 +177,7 @@ public class PlayerLocomotion : MonoBehaviour
             isGrounded = false;
         }
 
+        //Handling for slopes and stairs (kinda)
         if (isGrounded && !isJumping)
         {
             if (playerManager.isInteracting || inputManager.moveAmount > 0)
@@ -178,6 +193,13 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleJumping()
     {
+        if (isFlying)
+        {
+            return;
+        }
+
+        inputManager.jump_Input = false;
+
         if (isGrounded)
         {
             animatorManager.animator.SetBool("isJumping", true);
@@ -190,10 +212,22 @@ public class PlayerLocomotion : MonoBehaviour
         }
     }
 
-
-//TODO: Flight Control Implementation
-    public void HandleFlight()
+    public void HandleFlying()
     {
+        animatorManager.animator.SetBool("isFlying", true);
+        animatorManager.PlayTargetAnimation("Flight", true);
 
+        //NEEDS WORK: When the player holds the JUMP key, the player should move upwards while in flight.
+        if (inputManager.jump_Input)
+        {
+            float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
+            Vector3 playerVelocity = moveDirection;
+            playerVelocity.y = jumpingVelocity;
+            playerRigidbody.velocity = playerVelocity;
+        }
+
+        HandleMovement();
+        HandleRotation();
     }
+
 }

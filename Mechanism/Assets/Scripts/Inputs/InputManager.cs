@@ -29,6 +29,7 @@ public class InputManager : MonoBehaviour
 
     public bool b_Input;
     public bool jump_Input;
+    public bool flight_Input;
 
     private void Awake()
     {
@@ -49,6 +50,8 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.B.canceled += i => b_Input = false;
             playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
             playerControls.PlayerActions.Jump.canceled += i => jump_Input = false;
+            playerControls.PlayerActions.Fly.performed += i => flight_Input = true;
+            playerControls.PlayerActions.Fly.canceled += i => flight_Input = false;
         }
 
         playerControls.Enable();
@@ -67,7 +70,7 @@ public class InputManager : MonoBehaviour
         //TODO: HandleAttack();
         //TODO: HandleBlock();
         //TODO: HandleDodge();
-        //TODO: HandleFlight();
+        HandleFlightInput();
     }
 
     private void HandleMovement()
@@ -98,10 +101,19 @@ public class InputManager : MonoBehaviour
     {
         if (jump_Input)
         {
-            jump_Input = false;
+            //jump_Input = false;
             playerLocomotion.HandleJumping();
         }
-
     }
+
+    private void HandleFlightInput()
+    {
+        if (flight_Input)
+        {
+            
+            playerLocomotion.HandleFlying();
+        }
+    }
+
 }
 

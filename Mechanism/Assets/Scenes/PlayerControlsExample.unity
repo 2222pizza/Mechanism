@@ -199,12 +199,14 @@ MonoBehaviour:
   isSprinting: 0
   isGrounded: 0
   isJumping: 0
+  isFlying: 0
   walkingSpeed: 15
   runningSpeed: 20
-  sprintingSpeed: 30
+  sprintingSpeed: 25
   rotationSpeed: 50
-  jumpHeight: 4
-  gravityIntensity: -20
+  jumpHeight: 3
+  gravityIntensity: -55
+  flightSpeed: 25
 --- !u!114 &23604117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +291,7 @@ MonoBehaviour:
   horizontalInput: 0
   b_Input: 0
   jump_Input: 0
+  flight_Input: 0
 --- !u!1 &86082432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,8 +2534,9 @@ MonoBehaviour:
   minimumCollisionOffSet: 0.2
   cameraCollisionRadius: 0.2
   cameraFollowSpeed: 0.2
-  cameraLookSpeed: 2
-  cameraPivotSpeed: 2
+  cameraLookSpeed: 25
+  cameraPivotSpeed: 25
+  cameraLookSmoothTime: 1
   lookAngle: 0
   pivotAngle: 0
   minimumPivotAngle: -90
