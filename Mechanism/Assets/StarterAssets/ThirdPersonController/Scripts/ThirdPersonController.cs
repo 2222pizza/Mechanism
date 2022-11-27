@@ -16,9 +16,11 @@ namespace StarterAssets
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
-		public float MoveSpeed = 2.0f;
+		public float MoveSpeed = 35f;
 		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 5.335f;
+		public float SprintSpeed = 55f;
+		[Tooltip("The value of how fast the character can move up and down in flight mode.")]
+		public float flightVelocity = 65f;
 		[Tooltip("How fast the character turns to face movement direction")]
 		[Range(0.0f, 0.3f)]
 		public float RotationSmoothTime = 0.12f;
@@ -47,12 +49,8 @@ namespace StarterAssets
 		public float GroundedRadius = 0.28f;
 		[Tooltip("What layers the character uses as ground")]
 		public LayerMask GroundLayers;
-
-		[Header("Player Flight (WIP)")]
 		[Tooltip("If the character is using flight mode or not.")]
 		public bool isFlying = false;
-		[Tooltip("The value of how fast the character can move up and down in flight mode.")]
-		public float flightVelocity = 20f;
 
 		[Header("Cinemachine")]
 		[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -75,8 +73,8 @@ namespace StarterAssets
 		private float _animationBlend;
 		private float _targetRotation = 0.0f;
 		private float _rotationVelocity;
-		private float _verticalVelocity;
-		private float _terminalVelocity = 53.0f;
+		public float _verticalVelocity;		//TODO: This value was made public to debug, maybe make it private later?
+		private float _terminalVelocity = 50.0f;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -180,6 +178,12 @@ namespace StarterAssets
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+			// overrides move/sprint speed if fly is pressed
+			if (_input.fly)
+            {
+				targetSpeed = flightVelocity;
+            }
+
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -246,8 +250,7 @@ namespace StarterAssets
 				_fallTimeoutDelta = FallTimeout;
 				return;
             }
-
-			if (Grounded)
+			else if (Grounded)
 			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
@@ -347,7 +350,7 @@ namespace StarterAssets
 		public void Flight() 
 		{
 			if (_input.fly) {
-				isFlying = true;		
+				isFlying = true;
 
 				//The player can use the JUMP input to move upwards in flight.
 				if (_input.jump)
@@ -357,15 +360,22 @@ namespace StarterAssets
 				else if (_input.sprint)
                 {
 					_verticalVelocity = -flightVelocity;
-                }
+				}
                 else
                 {
-					_verticalVelocity = 0;
+					if (_verticalVelocity < -1)
+					{
+						_verticalVelocity = _verticalVelocity + 0.5f;
+					}
+					else if (_verticalVelocity > 1)
+					{
+						_verticalVelocity = _verticalVelocity - 0.5f;
+					}
+					else
+					{
+						_verticalVelocity = 0;
+					}
 				}
-
-				//Move player. This stacks on top of the move function calling in Update(), making the player move faster.
-				//There is probably a more efficient way to implement this but this was coded at ungodly hours and we can fix this later.
-				Move();
 			}
             else
             {
