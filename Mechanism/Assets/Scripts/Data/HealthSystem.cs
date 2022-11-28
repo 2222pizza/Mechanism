@@ -13,24 +13,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class HealthSystem : MonoBehaviour
 {
     public Image healthBar; //TODO: change this to adjust to UI implementation
-    public float healthAmount = 100;
+    public float healthAmount;
+    public bool noHealth;
     
-
-    private void Update()
+    public HealthSystem(float health)
     {
-        //Player Death
-        if(healthAmount <= 0)
-        {
-            //TODO: Kill the player
-            
-        }
-
-
-        //TODO: Take Damage triggers?
+        healthAmount = health;
+        CheckHealth();
     }
+
+    /*private void Update()
+    {
+        
+        //TODO: Take Damage triggers?
+    }*/
 
     public void TakeDamage(float Damage)
     {
@@ -38,6 +37,8 @@ public class PlayerHealth : MonoBehaviour
 
         //Update Healthbar
         healthBar.fillAmount = healthAmount / 100; //TODO: change this to accomodate GUI implementation
+
+        CheckHealth();
     }
 
     public void RestoreHealth(float HealthPoints)
@@ -47,5 +48,19 @@ public class PlayerHealth : MonoBehaviour
 
         //Update Healthbar
         healthBar.fillAmount = healthAmount / 100; //TODO: change this to accomodate GUI implementation
+
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if (healthAmount <= 0)
+        {
+            noHealth = true;
+        }
+        else
+        {
+            noHealth = false;
+        }
     }
 }
