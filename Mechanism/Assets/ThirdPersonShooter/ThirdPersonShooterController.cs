@@ -39,17 +39,22 @@ public class ThirdPersonShooterController : MonoBehaviour {
             hitTransform = raycastHit.transform;
         }
 
+        Vector3 worldAimTarget = mouseWorldPosition;
+        worldAimTarget.y = transform.position.y;
+        Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+        transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+
         if (starterAssetsInputs.aim) {
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
             thirdPersonController.SetRotateOnMove(false);
             animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
 
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+            //Vector3 worldAimTarget = mouseWorldPosition;
+            //worldAimTarget.y = transform.position.y;
+            //Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
-            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            //transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
         } else {
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensitivity);

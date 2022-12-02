@@ -74,7 +74,7 @@ namespace StarterAssets
 		private float _targetRotation = 0.0f;
 		private float _rotationVelocity;
 		public float _verticalVelocity;		//TODO: This value was made public to debug, maybe make it private later?
-		private float _terminalVelocity = 50.0f;
+		private float _terminalVelocity = 100.0f;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
