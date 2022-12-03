@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class BulletProjectile : MonoBehaviour {
     [SerializeField] private Transform vfxHitRed;
 
     private Rigidbody bulletRigidbody;
+    private int damage;
 
     private void Awake() {
         bulletRigidbody = GetComponent<Rigidbody>();
@@ -22,6 +24,8 @@ public class BulletProjectile : MonoBehaviour {
         if (other.GetComponent<BulletTarget>() != null) {
             // Hit target
             Instantiate(vfxHitGreen, transform.position, Quaternion.identity);
+            HealthSystem targetHealthSystem = other.GetComponent<HealthSystem>();
+            targetHealthSystem.TakeDamage(damage);
         } else {
             // Hit something else
             Instantiate(vfxHitRed, transform.position, Quaternion.identity);
@@ -29,4 +33,7 @@ public class BulletProjectile : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    public void SetDamage(int newDamage) {
+        damage = newDamage;
+    }
 }
