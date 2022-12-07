@@ -80,7 +80,8 @@ public class ThirdPersonShooterController : MonoBehaviour {
             //*
             // Projectile Shoot
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-            Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            Transform bullet = Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            bullet.GetComponent<BulletProjectile>().SetDamage(10);
             //*/
             starterAssetsInputs.shoot = false;
         }

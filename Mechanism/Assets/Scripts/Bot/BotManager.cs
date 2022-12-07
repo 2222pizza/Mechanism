@@ -45,7 +45,7 @@ public class BotManager : MonoBehaviour {
             target = transform;
             shootingTarget = GameObject.FindWithTag("Player").transform;
             if (shootFrame == 20) {
-                ShootTarget(shootingTarget);
+                ShootTarget(shootingTarget, 10);
                 shootFrame = 0;
             }
             if (Vector3.Distance(transform.position, GameObject.FindWithTag("Player").transform.position) > 50) {
@@ -61,7 +61,9 @@ public class BotManager : MonoBehaviour {
             }
             shootingTarget = GameObject.FindWithTag("Player").transform;
             if (shootFrame == 30) {
-                ShootTarget(shootingTarget);
+                if (Vector3.Distance(transform.position, GameObject.FindWithTag("Player").transform.position) < 300) {
+                    ShootTarget(shootingTarget, 10);
+                }
                 shootFrame = 0;
             }
         }
@@ -73,8 +75,9 @@ public class BotManager : MonoBehaviour {
 
     }
 
-    private void ShootTarget(Transform targetToShoot) {
+    private void ShootTarget(Transform targetToShoot, int weaponDamage) {
         Vector3 aimDir = (targetToShoot.position + new Vector3(0.0f, 7.0f, 0.0f) + new Vector3(UnityEngine.Random.Range(-2.0f, 2.0f), UnityEngine.Random.Range(-2.0f, 2.0f), UnityEngine.Random.Range(-2.0f, 2.0f)) - spawnBulletPosition.position).normalized;
-        Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up)); 
+        Transform bullet = Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+        bullet.GetComponent<BulletProjectile>().SetDamage(weaponDamage);
     }
 }

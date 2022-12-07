@@ -16,12 +16,16 @@ using UnityEngine.UI;
 public class HealthSystem : MonoBehaviour
 {
     public Image healthBar; //TODO: change this to adjust to UI implementation
+    public HealthManager healthManager;
     public float healthAmount;
     public bool noHealth;
     
-    public HealthSystem(float health)
+    /*public HealthSystem(float health)
     {
         healthAmount = health;
+        CheckHealth();
+    }*/
+    public void Start() {
         CheckHealth();
     }
 
@@ -36,7 +40,7 @@ public class HealthSystem : MonoBehaviour
         healthAmount -= Damage;
 
         //Update Healthbar
-        healthBar.fillAmount = healthAmount / 100; //TODO: change this to accomodate GUI implementation
+        //healthBar.fillAmount = healthAmount / 100; //TODO: change this to accomodate GUI implementation
 
         CheckHealth();
     }
@@ -57,6 +61,7 @@ public class HealthSystem : MonoBehaviour
         if (healthAmount <= 0)
         {
             noHealth = true;
+            healthManager.OnNoHealth();
         }
         else
         {
