@@ -11,11 +11,15 @@ public class ButtonHandler : MonoBehaviour {
 
 	public void Quit(){
 		Application.Quit();
-		//UnityEditor.EditorApplication.isPlaying = false;
-		
-	}
+		#if UNITY_EDITOR
+        if (Application.isEditor) {
+			UnityEditor.EditorApplication.isPlaying = false;
+		}
+		#endif
+    }
 
-	public void Begin(){
+    public void Begin(){
 		SceneManager.LoadScene (sceneName:"City Map");
-	}
+        Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
+    }
 }

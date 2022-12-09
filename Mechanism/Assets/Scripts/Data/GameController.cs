@@ -27,12 +27,16 @@ public class GameController : MonoBehaviour
         }
         else if (gameMode == "Elimination") {
             if (!isAnyPlayerAlive()) {
-                SceneManager.LoadScene(sceneName: "Defeat Scene");
+                SceneManager.LoadScene(sceneName: "End Scene");
                 Cursor.lockState = false ? CursorLockMode.Locked : CursorLockMode.None;
+                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(0).gameObject.SetActive(false);
+                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(1).gameObject.SetActive(true);
             }
             if (!isAnyBotAlive()) {
                 SceneManager.LoadScene(sceneName: "End Scene");
                 Cursor.lockState = false ? CursorLockMode.Locked : CursorLockMode.None;
+                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(0).gameObject.SetActive(true);
+                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(1).gameObject.SetActive(false);
             }
         }
         else if (gameMode == "Flag") {
