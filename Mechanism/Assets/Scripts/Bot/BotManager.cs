@@ -35,11 +35,11 @@ public class BotManager : MonoBehaviour {
     }
 
     void Update() {
-        target = GameObject.FindWithTag("Player").transform;
-        agent.destination = target.position;
+        //target = GameObject.FindWithTag("Player").transform;
+        //agent.destination = target.position;
     }
 
-    private void FixedUpdate() {
+    void FixedUpdate() {
         shootFrame++;
         if (currentState == "Idle") {
             target = transform;
@@ -69,6 +69,7 @@ public class BotManager : MonoBehaviour {
         }
         agent.destination = target.position;
         botActionManager.HandleMovement(agent.velocity.magnitude);
+        Debug.Log(currentState + ", " + target);
     }
 
     private void LateUpdate() {
