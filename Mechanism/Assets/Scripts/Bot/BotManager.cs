@@ -69,7 +69,6 @@ public class BotManager : MonoBehaviour {
         }
         agent.destination = target.position;
         botActionManager.HandleMovement(agent.velocity.magnitude);
-        Debug.Log(currentState + ", " + target);
     }
 
     private void LateUpdate() {
