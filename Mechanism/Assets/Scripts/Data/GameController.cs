@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    private List<GameObject> players;
-    private List<GameObject> bots;
+    public List<GameObject> players;
+    public List<GameObject> bots;
     public string gameMode;
     // Start is called before the first frame update
     void Start()
@@ -25,10 +27,12 @@ public class GameController : MonoBehaviour
         }
         else if (gameMode == "Elimination") {
             if (!isAnyPlayerAlive()) {
-                //End Game
+                SceneManager.LoadScene(sceneName: "Defeat Scene");
+                Cursor.lockState = false ? CursorLockMode.Locked : CursorLockMode.None;
             }
             if (!isAnyBotAlive()) {
-                //End Game
+                SceneManager.LoadScene(sceneName: "End Scene");
+                Cursor.lockState = false ? CursorLockMode.Locked : CursorLockMode.None;
             }
         }
         else if (gameMode == "Flag") {
@@ -45,15 +49,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public bool isPlayerAlive(GameObject player) {
+    private bool isPlayerAlive(GameObject player) {
         if (players.Contains(player)) return true;
         return false;
     }
-    public bool isAnyPlayerAlive() {
+    private bool isAnyPlayerAlive() {
         if (players.Count == 0) return false;
         return true;
     }
-    public bool isAnyBotAlive() {
+    private bool isAnyBotAlive() {
         if (bots.Count == 0) return false;
         return true;
     }
