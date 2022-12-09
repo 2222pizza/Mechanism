@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public static bool victory = false;
     public List<GameObject> players;
     public List<GameObject> bots;
     public string gameMode;
@@ -29,14 +30,16 @@ public class GameController : MonoBehaviour
             if (!isAnyPlayerAlive()) {
                 SceneManager.LoadScene(sceneName: "End Scene");
                 Cursor.lockState = false ? CursorLockMode.Locked : CursorLockMode.None;
-                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(0).gameObject.SetActive(false);
-                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(1).gameObject.SetActive(true);
+                victory = false;
+                //GameObject.FindGameObjectWithTag("Finish").transform.GetChild(0).gameObject.SetActive(false);
+                //GameObject.FindGameObjectWithTag("Finish").transform.GetChild(1).gameObject.SetActive(true);
             }
             if (!isAnyBotAlive()) {
                 SceneManager.LoadScene(sceneName: "End Scene");
                 Cursor.lockState = false ? CursorLockMode.Locked : CursorLockMode.None;
-                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(0).gameObject.SetActive(true);
-                GameObject.FindGameObjectWithTag("Finish").transform.GetChild(1).gameObject.SetActive(false);
+                victory = true;
+                //GameObject.FindGameObjectWithTag("Finish").transform.GetChild(0).gameObject.SetActive(true);
+                //GameObject.FindGameObjectWithTag("Finish").transform.GetChild(1).gameObject.SetActive(false);
             }
         }
         else if (gameMode == "Flag") {
