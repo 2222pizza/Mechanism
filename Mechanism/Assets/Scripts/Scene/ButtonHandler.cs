@@ -18,7 +18,13 @@ public class ButtonHandler : MonoBehaviour {
 		#endif
     }
 
-    public void Begin(){
+	public void BackToMenu()
+	{
+		SceneManager.LoadScene(sceneName: "Start Scene");
+
+	}
+
+	public void Begin(){
 		SceneManager.LoadScene (sceneName:"City Map");
         Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
     }

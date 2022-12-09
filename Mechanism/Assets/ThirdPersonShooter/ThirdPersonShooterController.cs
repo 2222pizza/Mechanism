@@ -39,6 +39,7 @@ public class ThirdPersonShooterController : MonoBehaviour {
             hitTransform = raycastHit.transform;
         }
 
+        // Rotates the player to the direction aimed
         Vector3 worldAimTarget = mouseWorldPosition;
         worldAimTarget.y = transform.position.y;
         Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
